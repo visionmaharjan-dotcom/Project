@@ -29,12 +29,20 @@ if ($row) {
         exit();
     }
 
+    elseif ($role == 'Seller')  
+{ 
+    $_SESSION["username"] = $username; 
+    $_SESSION["seller_id"] = $row['userid']; 
+    
+    echo "<script>window.location.href = '../seller/seller_dashboard.php';</script>"; 
+    exit(); 
+}
+} 
     
 } else {
     echo '<script>
     alert("Login failed");
     window.location.href = "signin_up.php";
 </script>';
-}
 }
 

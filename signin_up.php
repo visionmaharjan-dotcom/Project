@@ -20,13 +20,15 @@
             <select name="role">
                 <option value="Customer">Customer</option>
                 <option value="Admin">Admin</option>
+                <option value="Seller">Seller</option>
             </select>
             <div class="flex-container">
                 <label class="remember-me">
                     <input type="checkbox" id="rememberMe">
                     Remember Me
-                    <a href="../user/forgot_password/email.php" class="forgot-password">forgot password?</a>
+                    <a href="forgot_password/email.php" class="forgot-password">Forgot password?</a>
                 </label>
+                <a href="signup.php">Don't have an account? Sign up</a>
             </div>
             <button type="submit" name="login">Login</button>
         </form>
@@ -81,65 +83,3 @@
         document.cookie = name + "=; Max-Age=-99999999;";
     }
 </script>
-
-        <div class="signup-container">
-            <h1>Create Account!</h1>
-            <form class="form-signup" method="POST" action="">
-                <div class="role-selection">
-                    <label class="role-option customer">
-            
-                        <img src="../images/Customer.png" alt="Customer">
-                    </label>
-                    
-                </div>
-                <input type="text" placeholder="First name" name="firstname">
-                <input type="text" placeholder="Middle name" name="middlename">
-                <input type="text" placeholder="Last name" name="lastname">
-                <input type="date" placeholder="DOB" name="dob">
-                <div class="contact-field">
-                    <select id="countryCode" name="countryCode">
-                        <option value="+1">USA (+1)</option>
-                        <option value="+44">UK (+44)</option>
-                        <option value="+977">Nepal (+977)</option>
-                        <option value="+1">Canada (+1)</option>
-                    </select>
-                    <input type="text" name="phone" placeholder="Contact number">
-                </div>
-                <input type="email" placeholder="Email" name="email">
-                <input type="text" placeholder="Username" name="username">
-                <input type="password" placeholder="Password" name="password">
-                <button name="submit" type="submit">Create</button>
-            </form>
-        </div>
-    </div>
-    
-</body>
-</html>
-<?php
-include("connection.php");
-if(isset($_POST["submit"]))
-{
-    $firstname = $_POST["firstname"];
-    $middlename = $_POST["middlename"];
-    $lastname = $_POST["lastname"];
-    $contact = $_POST["phone"];
-    $email = $_POST["email"];
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-
-    if (empty($firstname) || empty($lastname) || empty($contact) || empty($email) || empty($username) || empty($password)) {
-        echo "<script>alert('All fields must be filled.'); window.location.href = 'signin_up.php';</script>";
-        exit;
-    }
-    $token = rand(100000, 999999);
-
-    $sql = "INSERT INTO USERS (firstname, middlename, lastname, contact, email, username, password, token) VALUES ('$firstname','$middlename','$lastname','$contact','$email','$username','$password','$token')";
-    $qry = mysqli_query($conn, $sql);
-
-    if ($qry) {
-        echo "<script>alert('You have successfully registered. Now you may login.'); window.location.href = 'signin_up.php';</script>";
-    } else {
-        echo "ERROR: Could not execute $sql. " . mysqli_error($conn);
-    }
-}
-?>
